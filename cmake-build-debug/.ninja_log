@@ -1,0 +1,5 @@
+# ninja log v5
+1	378	1682554478432329794	CMakeFiles/SmokinStats.dir/SmokingStat.cpp.o	91584855cfdb5ef1
+1	406	1682554478460562813	CMakeFiles/SmokinStats.dir/SmokingHashMap.cpp.o	6e6bfbe1de3d03bd
+0	469	1682554478524196422	CMakeFiles/SmokinStats.dir/main.cpp.o	8698b634da4b87b6
+469	522	1682554478578478552	SmokinStats	1f2190c6863b4b36
