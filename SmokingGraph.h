@@ -9,12 +9,12 @@ using namespace std;
 class SmokingGraph
 {
 private:
-    map<string, SmokingStat> graph;
+    map<pair<string, int>, SmokingStat> graph;
 
 public:
     SmokingGraph(vector<SmokingStat>& v);
 
     void AddVertex(const SmokingStat& stat);
 
-    SmokingStat GetVertex(const string& countryName);
+    SmokingStat GetVertex(const string& countryName, int year);
 };

@@ -5,24 +5,27 @@ SmokingGraph::SmokingGraph(vector<SmokingStat>& v)
     for (const auto& stat : v)
     {
         string countryName = stat.GetCountryName();
-        graph.emplace(countryName, stat);
+        int year = stat.GetYear();
+        graph.emplace(make_pair(countryName, year), stat);
     }
 }
 
 void SmokingGraph::AddVertex(const SmokingStat& stat)
 {
     string countryName = stat.GetCountryName();
-    graph[countryName] = stat;
+    int year = stat.GetYear();
+    graph[make_pair(countryName, year)] = stat;
 }
 
-SmokingStat SmokingGraph::GetVertex(const string& countryName)
+SmokingStat SmokingGraph::GetVertex(const string& countryName, int year)
 {
-    if (graph.find(countryName) != graph.end())
+    auto key = make_pair(countryName, year);
+    if (graph.find(key) != graph.end())
     {
-        return graph[countryName];
+        return graph[key];
     }
     else
     {
-        throw runtime_error("Country not found in the graph");
+        throw runtime_error("Country and year not found in the graph");
     }
 }
