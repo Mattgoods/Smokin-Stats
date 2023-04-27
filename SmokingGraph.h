@@ -17,4 +17,12 @@ public:
     void AddVertex(const SmokingStat& stat);
 
     SmokingStat GetVertex(const string& countryName, int year);
+
+    void PrintGreatestNum();
+
+    void PrintFewestNum();
+
+    void PrintLargestPercent();
+
+    void PrintSmallestPercent();
 };
