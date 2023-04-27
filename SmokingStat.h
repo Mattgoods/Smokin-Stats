@@ -9,49 +9,50 @@ using namespace std;
 class SmokingStat
 {
 private:
-	string countryName;
+    string countryName;
 
-	int year;
-	
-	// Average amount of cigarettes smoked per day by smokers
-	double dailyCigs;
+    int year;
 
-	// Percentage of the male population who are smokers
-	double percentMale;
+    // Average amount of cigarettes smoked per day by smokers
+    double dailyCigs;
 
-	// Percentage of the female population who are smokers
-	double percentFemale;
+    // Percentage of the male population who are smokers
+    double percentMale;
 
-	// Percentage of the total population who are smokers
-	double percentTotal;
+    // Percentage of the female population who are smokers
+    double percentFemale;
 
-	// Total number smokers
-	int totalSmokers;
+    // Percentage of the total population who are smokers
+    double percentTotal;
 
-	int totalFemaleSmokers;
+    // Total number smokers
+    int totalSmokers;
 
-	int totalMaleSmokers;
+    int totalFemaleSmokers;
+
+    int totalMaleSmokers;
 
 public:
-	SmokingStat(string countryName, int year, double dailyCigs, double percentMale, double percentFemale, 
-				double percentTotal, int totalSmokers, int totalFemaleSmokers, int totalMaleSmokers);
-	
-	string GetCountryName();
+    SmokingStat() = default;
 
-	int GetYear();
+    SmokingStat(string countryName, int year, double dailyCigs, double percentMale, double percentFemale,
+                double percentTotal, int totalSmokers, int totalFemaleSmokers, int totalMaleSmokers);
 
-	double GetDailyCigs();
+    string GetCountryName() const;
 
-	double GetPercentMale();
+    int GetYear() const;
 
-	double GetPercentFemale();
+    double GetDailyCigs() const;
 
-	double GetPercentTotal();
+    double GetPercentMale() const;
 
-	int GetTotalSmokers();
+    double GetPercentFemale() const;
 
-	int GetTotalFemaleSmokers();
+    double GetPercentTotal() const;
 
-	int TotalMaleSmokers();
+    int GetTotalSmokers() const;
+
+    int GetTotalFemaleSmokers() const;
+
+    int TotalMaleSmokers() const;
 };
-

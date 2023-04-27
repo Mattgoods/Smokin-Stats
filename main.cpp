@@ -13,20 +13,20 @@ void ReadFile(ifstream& inFile, vector<SmokingStat>& v);
 
 int main()
 {
-	ifstream inFile("smoking.csv");
+	ifstream inFile("SmokinStats/smoking.csv");
 	vector<SmokingStat> v;
 	
 	ReadFile(inFile, v);
 
-	/*for (auto i : v)
-	{
+	for (auto i : v) {
+
 		cout << i.GetCountryName() << ": " << i.GetYear() << endl;
-	}*/
+	}
 
 	SmokingHashMap HashMap(v);
 
-
 }
+
 
 void ReadFile(ifstream& inFile, vector<SmokingStat>& v)
 {
@@ -76,4 +76,5 @@ void ReadFile(ifstream& inFile, vector<SmokingStat>& v)
 				percentTotal, totalSmokers, totalFemaleSmokers, totalMaleSmokers));
 		}
 	}
+
 }

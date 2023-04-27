@@ -64,6 +64,12 @@ build CMakeFiles/SmokinStats.dir/SmokingStat.cpp.o: CXX_COMPILER__SmokinStats_De
   OBJECT_DIR = CMakeFiles/SmokinStats.dir
   OBJECT_FILE_DIR = CMakeFiles/SmokinStats.dir
 
+build CMakeFiles/SmokinStats.dir/SmokingGraph.cpp.o: CXX_COMPILER__SmokinStats_Debug /Users/mattgoodman/CLionProjects/SmokinStats/SmokingGraph.cpp || cmake_object_order_depends_target_SmokinStats
+  DEP_FILE = CMakeFiles/SmokinStats.dir/SmokingGraph.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6 -std=gnu++14
+  OBJECT_DIR = CMakeFiles/SmokinStats.dir
+  OBJECT_FILE_DIR = CMakeFiles/SmokinStats.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SmokinStats
@@ -72,7 +78,7 @@ build CMakeFiles/SmokinStats.dir/SmokingStat.cpp.o: CXX_COMPILER__SmokinStats_De
 #############################################
 # Link the executable SmokinStats
 
-build SmokinStats: CXX_EXECUTABLE_LINKER__SmokinStats_Debug CMakeFiles/SmokinStats.dir/main.cpp.o CMakeFiles/SmokinStats.dir/SmokingHashMap.cpp.o CMakeFiles/SmokinStats.dir/SmokingStat.cpp.o
+build SmokinStats: CXX_EXECUTABLE_LINKER__SmokinStats_Debug CMakeFiles/SmokinStats.dir/main.cpp.o CMakeFiles/SmokinStats.dir/SmokingHashMap.cpp.o CMakeFiles/SmokinStats.dir/SmokingStat.cpp.o CMakeFiles/SmokinStats.dir/SmokingGraph.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -mmacosx-version-min=11.6
   OBJECT_DIR = CMakeFiles/SmokinStats.dir
   POST_BUILD = :

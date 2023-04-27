@@ -1,61 +1,61 @@
 #include "SmokingStat.h"
 
 SmokingStat::SmokingStat(string countryName, int year, double dailyCigs, double percentMale, double percentFemale,
-						double percentTotal, int totalSmokers, int totalFemaleSmokers, int totalMaleSmokers)
+                         double percentTotal, int totalSmokers, int totalFemaleSmokers, int totalMaleSmokers)
 {
-	this->countryName = countryName;
-	this->year = year;
-	this->dailyCigs = dailyCigs;
-	this->percentMale = percentMale;
-	this->percentFemale = percentFemale;
-	this->percentTotal = percentTotal;
-	this->totalSmokers = totalSmokers;
-	this->totalFemaleSmokers = totalFemaleSmokers;
-	this->totalMaleSmokers = totalMaleSmokers;
+    this->countryName = countryName;
+    this->year = year;
+    this->dailyCigs = dailyCigs;
+    this->percentMale = percentMale;
+    this->percentFemale = percentFemale;
+    this->percentTotal = percentTotal;
+    this->totalSmokers = totalSmokers;
+    this->totalFemaleSmokers = totalFemaleSmokers;
+    this->totalMaleSmokers = totalMaleSmokers;
 
 }
 
-string SmokingStat::GetCountryName()
+string SmokingStat::GetCountryName() const
 {
-	return countryName;
+    return countryName;
 }
 
-int SmokingStat::GetYear()
+int SmokingStat::GetYear() const
 {
-	return year;
+    return year;
 }
 
-double SmokingStat::GetDailyCigs()
+double SmokingStat::GetDailyCigs() const
 {
-	return dailyCigs;
+    return dailyCigs;
 }
 
-double SmokingStat::GetPercentMale()
+double SmokingStat::GetPercentMale() const
 {
-	return percentMale;
+    return percentMale;
 }
 
-double SmokingStat::GetPercentFemale()
+double SmokingStat::GetPercentFemale() const
 {
-	return percentFemale;
+    return percentFemale;
 }
 
-double SmokingStat::GetPercentTotal()
+double SmokingStat::GetPercentTotal() const
 {
-	return percentTotal;
+    return percentTotal;
 }
 
-int SmokingStat::GetTotalSmokers()
+int SmokingStat::GetTotalSmokers() const
 {
-	return totalSmokers;
+    return totalSmokers;
 }
 
-int SmokingStat::GetTotalFemaleSmokers()
+int SmokingStat::GetTotalFemaleSmokers() const
 {
-	return totalFemaleSmokers;
+    return totalFemaleSmokers;
 }
 
-int SmokingStat::TotalMaleSmokers()
+int SmokingStat::TotalMaleSmokers() const
 {
-	return totalMaleSmokers;
+    return totalMaleSmokers;
 }
