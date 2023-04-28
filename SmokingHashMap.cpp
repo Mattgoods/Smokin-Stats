@@ -1,5 +1,6 @@
 #include "SmokingHashMap.h"
 #include <chrono>
+#include <algorithm>
 
 unsigned long long SmokingHashMap::Hash(string countryName, short year)
 {
@@ -60,10 +61,11 @@ SmokingStat SmokingHashMap::Search(const std::string &countryName, int year) {
     int index = Hash(countryName, year) % size; // Add modulo with the size of the hash table
     for (const auto &entry : hashTable[index]) {
         if (entry.GetCountryName() == countryName && entry.GetYear() == year) {
+            
             return entry;
         }
     }
-
+    throw runtime_error("Country or year not found in the hash map");
 }
 
 
@@ -116,6 +118,7 @@ void SmokingHashMap::PrintGreatestNum()
 vector<SmokingStat> SmokingHashMap::Top10LeastSmokingCountries(int year)
 {
     vector<SmokingStat> top10Least;
+
     for (const vector<SmokingStat> &bucket : hashTable) {
         for (const SmokingStat &entry: bucket) {
 
@@ -124,6 +127,7 @@ vector<SmokingStat> SmokingHashMap::Top10LeastSmokingCountries(int year)
             }
         }
     }
+
     sort(top10Least.begin(), top10Least.end(), [](const SmokingStat &a, const SmokingStat &b) { return a.GetPercentTotal() < b.GetPercentTotal(); });
 
     if (top10Least.size() > 10)

@@ -1,4 +1,5 @@
 #include "SmokingGraph.h"
+#include <algorithm>
 
 SmokingGraph::SmokingGraph(vector<SmokingStat>& v)
 {
@@ -26,7 +27,7 @@ SmokingStat SmokingGraph::GetVertex(const string& countryName, int year)
     }
     else
     {
-        throw runtime_error("Country and year not found in the graph");
+        throw runtime_error("Country or year not found in the graph");
     }
 }
 
