@@ -56,23 +56,17 @@ SmokingHashMap::SmokingHashMap(vector<SmokingStat>& v)
     }
 }
 
-void SmokingHashMap::Search(string countryName, int year)
-{
-    int index = Hash(countryName, year) % size;
-    bool found = false;
-    for (auto i : hashTable[index])
-    {
-        if (i.GetCountryName() == countryName && i.GetYear() == year)
-        {
-            found = true;
+SmokingStat SmokingHashMap::Search(const std::string &countryName, int year) {
+    int index = Hash(countryName, year) % size; // Add modulo with the size of the hash table
+    for (const auto &entry : hashTable[index]) {
+        if (entry.GetCountryName() == countryName && entry.GetYear() == year) {
+            return entry;
         }
     }
 
-    if (found)
-        cout << "Found!";
-    else
-        cout << "Not found!";
 }
+
+
 
 void SmokingHashMap::Print()
 {
@@ -119,17 +113,51 @@ void SmokingHashMap::PrintGreatestNum()
     cout << hashTable[x][y].GetCountryName() << hashTable[x][y].GetYear();
 }
 
-void SmokingHashMap::PrintFewestNum()
+vector<SmokingStat> SmokingHashMap::Top10LeastSmokingCountries(int year)
 {
+    vector<SmokingStat> top10Least;
+    for (const vector<SmokingStat> &bucket : hashTable) {
+        for (const SmokingStat &entry: bucket) {
 
+            if (entry.GetYear() == year) {
+                top10Least.push_back(entry);
+            }
+        }
+    }
+    sort(top10Least.begin(), top10Least.end(), [](const SmokingStat &a, const SmokingStat &b) { return a.GetPercentTotal() < b.GetPercentTotal(); });
+
+    if (top10Least.size() > 10)
+    {
+        top10Least.resize(10);
+    }
+
+    for (size_t i = 0; i < top10Least.size(); ++i) {
+        const auto &stat = top10Least[i];
+        cout << "#" << (i + 1) << " - " << stat.GetCountryName() << ": " << stat.GetPercentTotal() << "%" << endl;
+    }
+    return top10Least;
 }
 
-void SmokingHashMap::PrintLargestPercent()
+vector<SmokingStat> SmokingHashMap::Top10MostSmokingCountries(int year)
 {
+    vector<SmokingStat> top10Most;
+    for (const vector<SmokingStat> &bucket : hashTable) {
+        for (const SmokingStat &entry : bucket) {
+            if (entry.GetYear() == year) {
+                top10Most.push_back(entry);
+            }
+        }
+    }
 
-}
+    sort(top10Most.begin(), top10Most.end(), [](const SmokingStat &a, const SmokingStat &b) { return a.GetPercentTotal() > b.GetPercentTotal(); });
 
-void SmokingHashMap::PrintSmallestPercent()
-{
-
+    if (top10Most.size() > 10)
+    {
+        top10Most.resize(10);
+    }
+    for (size_t i = 0; i < top10Most.size(); ++i) {
+        const auto &stat = top10Most[i];
+        cout << "#" << (i + 1) << " - " << stat.GetCountryName() << ": " << stat.GetPercentTotal() << "%" << endl;
+    }
+    return top10Most;
 }

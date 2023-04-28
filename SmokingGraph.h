@@ -25,4 +25,9 @@ public:
     void PrintLargestPercent();
 
     void PrintSmallestPercent();
+
+    vector<SmokingStat> Top10LeastSmokingCountries(int year);
+
+    vector<SmokingStat> Top10MostSmokingCountries(int year);
+
 };

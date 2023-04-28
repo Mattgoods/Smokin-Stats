@@ -17,16 +17,14 @@ private:
     int size;
 
     vector<vector<SmokingStat>> hashTable;
-
     void Insert(int index, SmokingStat stat);
     unsigned long long Hash(string countryName, short year);
 public:
     SmokingHashMap(vector<SmokingStat>& v);
-    void Search(string countryName, int year);
+    SmokingStat Search(const std::string &countryName, int year);
     void Print();
     void PrintGreatestNum();
-    void PrintFewestNum();
-    void PrintLargestPercent();
-    void PrintSmallestPercent();
+    vector<SmokingStat> Top10LeastSmokingCountries(int year);
+    vector<SmokingStat> Top10MostSmokingCountries(int year);
 
 };

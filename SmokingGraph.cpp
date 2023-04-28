@@ -97,3 +97,53 @@ void SmokingGraph::PrintSmallestPercent()
 
     cout << "Country with smallest percent of smokers: " << minStat.GetCountryName() << " (" << minStat.GetYear() << ") with " << minStat.GetPercentTotal() << "% smokers" << endl;
 }
+
+vector<SmokingStat> SmokingGraph::Top10LeastSmokingCountries(int year)
+{
+    vector<SmokingStat> top10Least;
+    for (const auto &entry : graph)
+    {
+        if (entry.first.second == year)
+        {
+            top10Least.push_back(entry.second);
+        }
+    }
+    sort(top10Least.begin(), top10Least.end(), [](const SmokingStat &a, const SmokingStat &b) { return a.GetPercentTotal() < b.GetPercentTotal(); });
+
+    if (top10Least.size() > 10)
+    {
+        top10Least.resize(10);
+    }
+
+    for (size_t i = 0; i < top10Least.size(); ++i) {
+        const auto &stat = top10Least[i];
+        cout << "#" << (i + 1) << " - " << stat.GetCountryName() << ": " << stat.GetPercentTotal() << "%" << endl;
+    }
+
+    return top10Least;
+}
+
+vector<SmokingStat> SmokingGraph::Top10MostSmokingCountries(int year)
+{
+    vector<SmokingStat> top10Most;
+    for (const auto &entry : graph)
+    {
+        if (entry.first.second == year)
+        {
+            top10Most.push_back(entry.second);
+        }
+    }
+    sort(top10Most.begin(), top10Most.end(), [](const SmokingStat &a, const SmokingStat &b) { return a.GetPercentTotal() > b.GetPercentTotal(); });
+
+    if (top10Most.size() > 10)
+    {
+        top10Most.resize(10);
+    }
+
+    for (size_t i = 0; i < top10Most.size(); ++i) {
+        const auto &stat = top10Most[i];
+        cout << "#" << (i + 1) << " - " << stat.GetCountryName() << ": " << stat.GetPercentTotal() << "%" << endl;
+    }
+
+    return top10Most;
+}

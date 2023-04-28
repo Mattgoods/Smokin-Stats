@@ -1,203 +1,132 @@
 #include <iostream>
-#include <iomanip>
 #include <vector>
-#include <map>
-#include <math.h>
-#include <fstream>
-#include <sstream>
+#include <chrono>
 #include "SmokingStat.h"
 #include "SmokingHashMap.h"
-#include <time.h>
-#include <chrono>
-/*
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-*/
-//#include <SFML/Audio.hpp>
-//#include <SFML/Network.hpp>
+#include "SmokingGraph.h"
 
 using namespace std;
 
+int main() {
+    // Example data: Replace this with actual data from a file or another source
+    vector<SmokingStat> data = {
+            // countryName, year, dailyCigs, percentMale, percentFemale, percentTotal, totalSmokers, totalFemaleSmokers, totalMaleSmokers
+            {"CountryA", 2020, 20, 40, 30, 35, 1000000, 400000, 600000},
+            {"CountryB", 2020, 15, 30, 20, 25, 900000,  300000, 600000},
+            {"CountryC", 2020, 10, 20, 10, 15, 800000,  200000, 600000},
+            {"CountryD", 2020, 10, 20, 10, 14, 800000,  200000, 600000},
+            {"CountryE", 2020, 10, 20, 10, 15, 800000,  200000, 600000},
+            {"CountryF", 2020, 10, 20, 10, 9, 800000,  200000, 600000},
+            {"CountryG", 2020, 10, 20, 10, 12, 800000,  200000, 600000},
+            {"CountryH", 2020, 10, 20, 10, 11, 800000,  200000, 600000},
+            {"CountryI", 2020, 10, 20, 10, 10, 800000,  200000, 600000},
+            {"CountryJ", 2020, 10, 20, 10, 18, 800000,  200000, 600000},
+            {"CountryK", 2020, 10, 20, 10, 30, 800000,  200000, 600000},
+            // ... Add more data
+    };
 
-void ReadFile(ifstream& inFile, vector<SmokingStat>& v);
+    int dataStructureChoice;
+    int operationChoice;
 
-void PromptChoices();
+    while (true) {
+        cout << "Choose a Data Structure to Use: " << endl;
+        cout << "#1: Hash Map" << endl;
+        cout << "#2: Graph" << endl;
+        cout << "Choice: ";
 
-void PromptSearches();
+        cin >> dataStructureChoice;
 
-void AskName();
+        if (dataStructureChoice != 1 && dataStructureChoice != 2) {
+            cout << "Invalid choice. Please enter 1 or 2." << endl;
+            continue;
+        }
 
-void AskYear();
+        SmokingHashMap hashMap(data);
+        SmokingGraph graph(data);
 
-int main()
-{
-    // auto start = chrono::high_resolution_clock::now();
+        while (true) {
+            cout << "Choose an Operation to Perform: " << endl;
+            cout << "#1: Get Stats for Country/Year" << endl;
+            cout << "#2: Bonus Features" << endl;
+            cout << "Choice: ";
 
-    // chrono::steady_clock::time_point a = chrono::high_resolution_clock::now();
+            cin >> operationChoice;
 
-    ifstream inFile("smoking.csv");
-    vector<SmokingStat> v;
+            if (operationChoice == 1) {
+                string countryName;
+                int year;
+                cout << "Enter the country name: ";
+                cin >> countryName;
+                cout << "Enter the year: ";
+                cin >> year;
 
-    ReadFile(inFile, v);
+                auto start = chrono::high_resolution_clock::now();
+                if (dataStructureChoice == 1) {
+                    SmokingStat result = hashMap.Search(countryName, year);
+                    if (result.GetYear() != -1) {
+                        cout << result << endl;
+                    } else {
+                        cout << "Not found." << endl;
+                    }
+                } else {
+                    try {
+                        try {
+                            SmokingStat result = graph.GetVertex(countryName, year);
+                            if (result.GetYear() != -1) {
+                                cout << result << endl;
+                            } else {
+                                cout << "Not found." << endl;
+                            }
+                        } catch (const runtime_error &e) {
+                            cerr << e.what() << endl;
+                        }
 
-    /*for (auto i : v)
-    {
-        cout << i.GetCountryName() << ": " << i.GetYear() << endl;
-    }*/
+                    }
+                    catch (const runtime_error &e) {
+                        cerr << e.what() << endl;
+                    }
+                }
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+                cout << "Execution time: " << duration.count() << " microseconds" << endl;
+            } else if (operationChoice == 2) {
+                int bonusFeatureChoice;
+                int year;
 
-    // SFML not working
-    /*sf::RenderWindow window(sf::VideoMode(640, 480), "Project 3", sf::Style::Titlebar | sf::Style::Close);
-    sf::Event event;
+                cout << "Choose a Bonus Feature: " << endl;
+                cout << "#1: Top 10 Least Smoking Countries" << endl;
+                cout << "#2: Top 10 Most Smoking Countries" << endl;
+                cout << "Choice: ";
 
+                cin >> bonusFeatureChoice;
 
-    while (window.isOpen())
-    {
-        while (window.pollEvent(event))
-        {
-            switch (event.type)
-            {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::KeyPressed:
-                break;
-            default:
-                break;
+                if (bonusFeatureChoice != 1 && bonusFeatureChoice != 2) {
+                    cout << "Invalid choice. Please enter 1 or 2." << endl;
+                    continue;
+                }
+
+                cout << "Enter the year: ";
+                cin >> year;
+
+                // Note: Implement the functions for Top 10 Least and Most Smoking Countries in the respective classes
+                auto start = chrono::high_resolution_clock::now();
+                if (dataStructureChoice == 1) {
+                    if (bonusFeatureChoice == 1) {
+                        hashMap.Top10LeastSmokingCountries(year);
+                    } else {
+                        hashMap.Top10MostSmokingCountries(year);
+                    }
+                } else {
+                    if (bonusFeatureChoice == 1) {
+                        graph.Top10LeastSmokingCountries(year);
+                    } else {
+                        graph.Top10MostSmokingCountries(year);
+                    }
+                }
+                auto end = chrono::high_resolution_clock::now();
+                auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+                cout << "Execution time: " << duration.count() << " microseconds" << endl;
             }
         }
-
-        window.clear();
-
-        window.display();
-    }*/
-
-    bool running = true;
-
-    int choice, search;
-    string countryName, year;
-
-
-    // Print to console for user
-    while (running)
-    {
-        PromptChoices();
-        cin >> choice;
-
-        // Hashtable
-        if (choice == 1)
-        {
-            SmokingHashMap hashTable(v);
-            PromptSearches();
-            cin >> search;
-            switch (search)
-            {
-                case 1:
-                    AskName();
-                    cin >> countryName;
-                    cout << endl;
-                    AskYear();
-                    cin >> year;
-
-                    hashTable.Search(countryName, stoi(year));
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                default:
-                    break;
-            }
-        }
-            // Graph (Adjaceny List)
-        else if (choice == 2)
-        {
-
-        }
-        else
-        {
-            cout << "INVALID INPUT! Pick 1 or 2.";
-        }
-
-
     }
-
-}
-
-void ReadFile(ifstream& inFile, vector<SmokingStat>& v)
-{
-    if (inFile.is_open())
-    {
-        // line from file (lff)
-        string lff;
-        string buffer;
-        string countryName;
-        int year;
-        double dailyCigs, percentMale, percentFemale, percentTotal;
-        int totalSmokers, totalFemaleSmokers, totalMaleSmokers;
-        getline(inFile, lff);
-        while (getline(inFile, lff))
-        {
-            //cout << lff << endl;
-            istringstream stream(lff);
-            getline(stream, countryName, ',');
-
-            getline(stream, buffer, ',');
-            //buffer = buffer.substr(1, buffer.length() - 2);
-            year = stoi(buffer);
-
-            getline(stream, buffer, ',');
-            dailyCigs = stof(buffer);
-
-            getline(stream, buffer, ',');
-            percentMale = stof(buffer);
-
-            getline(stream, buffer, ',');
-            percentFemale = stof(buffer);
-
-            getline(stream, buffer, ',');
-            percentTotal = stof(buffer);
-
-            getline(stream, buffer, ',');
-            totalSmokers = stoi(buffer);
-
-            getline(stream, buffer, ',');
-            totalFemaleSmokers = stoi(buffer);
-
-            getline(stream, buffer, ',');
-            totalMaleSmokers = stoi(buffer);
-            /*SmokingStat s(countryName, year, dailyCigs, percentMale, percentFemale,
-                percentTotal, totalSmokers, totalFemaleSmokers, totalMaleSmokers);*/
-            v.push_back(SmokingStat(countryName, year, dailyCigs, percentMale, percentFemale,
-                                    percentTotal, totalSmokers, totalFemaleSmokers, totalMaleSmokers));
-
-        }
-    }
-}
-
-void PromptChoices()
-{
-    cout << "#1 Hashtable" << endl;
-    cout << "#2 AdjacencyList" << endl;
-    cout << "Select which data structure to use (Type 1 or 2): ";
-}
-
-void PromptSearches()
-{
-    cout << "#1 Search country and year" << endl;
-    cout << "#2 Find country with greatest number of smokers" << endl;
-    cout << "#3 Find country with largest percentage of smokers" << endl;
-    cout << "#4 Find country with fewest number of smokers" << endl;
-    cout << "#5 Find country with smallest percentage of smokers" << endl;
-}
-
-void AskName()
-{
-    cout << "Type in country name: ";
-}
-
-void AskYear()
-{
-    cout << "Type in year: ";
 }

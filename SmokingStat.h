@@ -38,6 +38,14 @@ public:
     SmokingStat(string countryName, int year, double dailyCigs, double percentMale, double percentFemale,
                 double percentTotal, int totalSmokers, int totalFemaleSmokers, int totalMaleSmokers);
 
+    friend std::ostream& operator<<(std::ostream& os, const SmokingStat& stat) {
+        os << "Country: " << stat.countryName << ", Year: " << stat.year << ", Daily Cigs: " << stat.dailyCigs
+           << ", Percent Male: " << stat.percentMale << ", Percent Female: " << stat.percentFemale
+           << ", Percent Total: " << stat.percentTotal << ", Total Smokers: " << stat.totalSmokers
+           << ", Total Female Smokers: " << stat.totalFemaleSmokers << ", Total Male Smokers: " << stat.totalMaleSmokers;
+        return os;
+    }
+
     string GetCountryName() const;
 
     int GetYear() const;
